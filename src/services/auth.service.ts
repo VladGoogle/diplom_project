@@ -28,7 +28,7 @@ export class AuthService {
     if (!isValidPassword) {
       throw new UnauthorizedException('Invalid user credentials');
     }
-    const access_token = this.jwtService.sign({
+    const access_token = this.jwtService.signAsync({
       email: isValidEmail.email,
       roles: isValidEmail.roles,
     });

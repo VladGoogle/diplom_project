@@ -7,12 +7,13 @@ import { PrismaService } from '../services/prisma.service';
 import { UserDto } from '../dtos/user.dto';
 import { UpdateUserDto } from '../dtos/updateUser.dto';
 import { ChangeUserRoleDto } from '../dtos/changeUserRole.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserQueries {
   constructor(private prisma: PrismaService) {}
 
-  async signUp(data: UserDto) {
+  async signUp(data: UserDto): Promise<User> {
     try {
       return await this.prisma.user.create({
         data: {
@@ -28,7 +29,7 @@ export class UserQueries {
     }
   }
 
-  async findUserById(id: number) {
+  async findUserById(id: number): Promise<User> {
     try {
       const user = await this.prisma.user.findUniqueOrThrow({
         where: { id: id },
@@ -39,7 +40,7 @@ export class UserQueries {
     }
   }
 
-  async findUserByEmail(email: string) {
+  async findUserByEmail(email: string): Promise<User> {
     try {
       const user = await this.prisma.user.findUniqueOrThrow({
         where: {
